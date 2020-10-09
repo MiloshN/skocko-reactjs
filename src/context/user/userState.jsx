@@ -9,5 +9,21 @@ export const userState = ({ children }) => {
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [state, dispatch] = useReducer(userReducer, initState);
-  return <userContext.Provider value={null}>{children}</userContext.Provider>;
+
+  const isUser = () => {
+    dispatch({
+      type: "USER_LOGINED",
+    });
+  };
+
+  return (
+    <userContext.Provider
+      value={{
+        users: state.user,
+        isUser,
+      }}
+    >
+      {children}
+    </userContext.Provider>
+  );
 };
